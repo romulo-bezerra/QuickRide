@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
-
+	<?php 
+		include("main_alerts.php");
+		status_cadastro();
+	?>
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -52,18 +55,18 @@
                       </div>
                   </div>
 
-                  <form action="#" id="registration-form">
+                  <form method="post" action="cadastraUsuario.php"> <!-- id="registration-form" -->
                       <div class="row">
                           <div class="col-md-12" id="registration-msg" style="display:none;">
                               <div class="alert"></div>
                           </div>
                           <div class="col-sm-6">
                               <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="Nome" id="fname" name="fname" required>
+                                  <input type="text" class="form-control" placeholder="Nome" id="fname" name="nome" required>
                               </div>
 
                               <div class="form-group">
-                                  <input type="text" class="form-control" placeholder="Sobrenome" id="lname" name="lname" required>
+                                  <input type="text" class="form-control" placeholder="Sobrenome" id="lname" name="sobrenome" required>
                               </div>
 
                               <div class="form-group">
@@ -71,21 +74,21 @@
                               </div>
 
                               <div class="form-group">
-                                  <input type="date" class="form-control" placeholder="Nascimento" id="cell" name="cell" required>
+                                  <input type="date" class="form-control" placeholder="Nascimento" id="cell" name="nascimento" required>
                               </div>
                           </div>
 
                           <div class="col-sm-6">
                               <div class="form-group">
-                                  <input type="tel" class="form-control" placeholder="Telefone" id="address" name="address" required>
+                                  <input type="tel" class="form-control" placeholder="Telefone" id="address" name="telefone" required>
                               </div>
 
                               <div class="form-group">
-                                  <input type="password" class="form-control" placeholder="Senha" id="zip" name="zip" required>
+                                  <input type="password" class="form-control" placeholder="Senha" id="zip" name="senha" required>
                               </div>
 
                               <div class="form-group">
-                                  <select class="form-control" name="city" id="city" required>
+                                  <select class="form-control" name="sexo" id="city" required>
                                       <option readonly>Masculino</option>
                                       <option>Feminino</option>
                                       <option>Outro</option>
@@ -94,16 +97,13 @@
                           </div>
                       </div>
                       <div class="text-center mt20">
-                          <button type="submit" class="btn btn-black" id="registration-submit-btn">Cadastrar</button>
+                      	  <input type="submit" class="btn btn-black" value="Cadastrar" name="cadastrar" id="registration-submit-btn">
                       </div>
                   </form>
               </div>
           </section>
-
         </div>
     </header>
-
-
 
     <!-- script -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>

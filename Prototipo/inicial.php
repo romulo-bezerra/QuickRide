@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
+  	<?php 
+		include("main_alerts.php");
+		status_cadastro();
+	?>
 
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
         <div class="container">

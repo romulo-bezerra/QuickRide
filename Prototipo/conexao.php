@@ -1,7 +1,7 @@
 <?php
   function open_database() {
       try {
-          $conn = mysqli_connect('localhost', 'root','', 'republics');
+          $conn = mysqli_connect('localhost', 'root','', 'projeto1_bdii');
           return $conn;
       } catch (Exception $e) {
           echo $e->getMessage();
