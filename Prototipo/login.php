@@ -13,7 +13,11 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
-
+	<?php 
+		include("crudMySql.php");
+	    include("main_alerts.php");
+		status_login();
+	?>
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -51,7 +55,7 @@
                       </div>
                   </div>
 
-                  <form action="#" id="registration-form">
+                  <form method="post" action="valida_login.php"><!--id="registration-form"-->
                       <div class="row">
                           <div class="col-md-12" id="registration-msg" style="display:none;">
                               <div class="alert"></div>
@@ -67,7 +71,7 @@
                           <div class="col-sm-6">
 
                               <div class="form-group">
-                                  <input type="password" class="form-control" placeholder="Senha" id="zip" name="zip" required>
+                                  <input type="password" class="form-control" placeholder="Senha" id="zip" name="senha" required>
                               </div>
 
                           </div>
@@ -75,10 +79,10 @@
 
                       <div class="text-center mt20">
                           <h3>Não é Cadastrado ?</h3>
-                          <a class="btn btn-black" href="cadastro.html">Cadastrar</a>
+                          <a class="btn btn-black" href="cadastro.php">Cadastrar</a>
                       </div>
                       <div class="text-center mt20">
-                          <a class="btn btn-black" href="inicial.html">Login</a>
+                          <input type="submit" class="btn btn-black" value="Login" name="login" id="registration-submit-btn">
                       </div>
                   </form>
               </div>

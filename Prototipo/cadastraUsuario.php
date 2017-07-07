@@ -16,8 +16,9 @@
 		session_start();
 		//Guarda informação de sucesso do cadastro
     	$_SESSION['cadSuccess'] = TRUE;
-		//Linka para a tela inicial.php
-		Header("location:inicial.php");
+		//Linka para a tela login.php
+		Header("location:login.php");
+		session_unset();
 		
 	}else{
 		session_start();
@@ -25,6 +26,7 @@
     	$_SESSION['cadSuccess'] = FALSE;
 		//Linka para a tela cadastro.php
 		Header("location:cadastro.php");
+		session_unset();
 	}
 	
 ?>
