@@ -15,7 +15,8 @@
   <body>
   	<?php 
 		include("main_alerts.php");
-		status_cadastro();
+		session_start();
+		status_validaLogin($_SESSION['valSuccess'], $_SESSION['message']);
 	?>
 
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">

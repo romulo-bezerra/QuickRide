@@ -13,11 +13,6 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
-	<?php 
-		include("crudMySql.php");
-	    include("main_alerts.php");
-		status_login();
-	?>
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
         <div class="container">
             <div class="navbar-header">
@@ -51,47 +46,38 @@
               <div class="container">
                   <div class="row">
                       <div class="col-md-12">
-                          <h3>Login</h3>
+                          <h3>Sign in</h3>
                       </div>
                   </div>
 
-                  <form method="post" action="valida_login.php"><!--id="registration-form"-->
+                  <form method="post" action="valida_login.php">
                       <div class="row">
                           <div class="col-md-12" id="registration-msg" style="display:none;">
                               <div class="alert"></div>
                           </div>
-                          <div class="col-sm-6">
-
-                              <div class="form-group">
-                                  <input type="email" class="form-control" placeholder="Email" id="email" name="email" required>
-                              </div>
-
-                          </div>
-
-                          <div class="col-sm-6">
-
-                              <div class="form-group">
-                                  <input type="password" class="form-control" placeholder="Senha" id="zip" name="senha" required>
-                              </div>
-
+                          <div class="campos">
+	                          <input type="email" align="center" class="form-control" placeholder="Email" id="email" name="email" required><br/>
+	                          <input type="password" class="form-control" placeholder="Senha" id="senha" name="senha" required>                    	
                           </div>
                       </div>
-
                       <div class="text-center mt20">
+                          <input type="submit" class="btn btn-black" id="btLogin" value="Login" href="inicial.php">
+                      </div>
+                      <div class="text-center mt20"><br/>
                           <h3>Não é Cadastrado ?</h3>
                           <a class="btn btn-black" href="cadastro.php">Cadastrar</a>
-                      </div>
-                      <div class="text-center mt20">
-                          <input type="submit" class="btn btn-black" value="Login" name="login" id="registration-submit-btn">
-                      </div>
+                      </div>             
                   </form>
               </div>
           </section>
 
         </div>
     </header>
-
-
+    <?php 
+		include("main_alerts.php");
+		session_start();
+		status_validaLogin($_SESSION['valSuccess'], $_SESSION['message']);
+	?>
 
     <!-- script -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
