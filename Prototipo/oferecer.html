@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
+
   </head>
   <body>
 
@@ -42,55 +43,49 @@
     </nav>
 
     <header id="site-header" class="site-header valign-center">
-<section id="location" class="section location">
-      <div class="intro"
-            <div class="text-center mt20">
-      <h3>Oferecer Carona</h3>
-      </div>
-      </div>
-</section>
+      <div class="intro">
 
+      <h3 class="nomepagina" >Oferecer Carona</h3>
 
-      <section id="location" class="section location">
+      <form  class="formpagina" method="post" action="index.html">
 
-          <div class="container">
+          <h4 for="txtEnderecoPartida">Origem</h4>
+          <input class="form-control2" type="text" id="txtEnderecoPartida" name="txtEnderecoPartida">
+         </br>
+          <h4 for="txtEnderecoChegada">Destino</h4>
+          <input class="form-control2" type="text" id="txtEnderecoChegada" name="txtEnderecoChegada">
+         </br></br>
+         <input class="btn btn-black" type="submit"  id="btnEnviar" name="btnEnviar" value="Adicionar Destino">
+       </br>
+         <h4>Data da Viajem</h4>
+         <input type="date" class="form-control2" placeholder="Nascimento" id="cell" name="cell" required>
+         <h4>Hora de Saída</h4>
+         <input type="time" class="form-control2" placeholder="Nascimento" id="hora" name="hora" required>
+         <h4>Ajuda de Custo</h4>
+         <input type="text" class="form-control2" placeholder="R$" id="cell" name="cell" required>
+       </br></br>
+         <a class="btn btn-black" href="inicial.html">Confirmar</a>
+</form>
 
-              <div class="row">
+<div id="mapa">
+</div>
 
-                  <div class="col-sm-3">
+<!--<div id="trajeto-texto">
+</div>-->
 
-                      <div class="intro">
-                          <h4>Origem</h4>
-                           <a class="btn btn-black" href=".html">Abrir Mapa</a>
-                         </br>
-                          <h4>Destino</h4>
-                           <a class="btn btn-black" href=".html">Abrir Mapa</a>
-                         </br></br>
-                         <a class="btn btn-black" href=".html">Adicionar Destino</a>
-                       </br>
-                         <h4>Data da Viajem</h4>
-                         <input type="date" class="form-control2" placeholder="Nascimento" id="cell" name="cell" required>
-                         <h4>Hora de Saída</h4>
-                         <input type="time" class="form-control2" placeholder="Nascimento" id="cell" name="cell" required>
-                         <h4>Ajuda de Custo</h4>
-                         <input type="text" class="form-control2" placeholder="R$" id="cell" name="cell" required>
-                       </br></br>
-                         <a class="btn btn-black" href="inicial.html">Confirmar</a>
-                      </div>
-                  </div>
-                  <div class="col-sm-9">
-                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96706.50013548559!2d-78.9870674333782!3d40.76030630398601!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sbd!4v1436299406518" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-                  </div>
-              </div>
-          </div>
-      </section>
-    </header>
+<div id="distancia"><h4 class="dis">-Distância-</h4></div>
+<div id="duracao"><h4 class="dur">-Duração-</h4></div>
+
+</div>
+</header>
 
     <!-- script -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjgDETAGa13nEXRxZypOnLqc8PhzLSdoc&callback=initMap"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/mapa.js"></script>
 
   </body>
 </html>

@@ -80,6 +80,60 @@ ul li {
   color: #000;
 }
 
+#mapa {
+  width: 60%;
+  height: 450px;
+  float: left;
+  margin-top: 1%;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+.nomepagina {
+  margin: 5%;
+}
+
+.formpagina {
+  float: left;
+}
+
+#trajeto-texto {
+  float: right;
+  background-color: white;
+  margin-top: 1%;
+  width: 21%;
+  height: 450px;
+  overflow: auto;
+  font-size: 12px;
+}
+
+#distancia {
+  float: right;
+  background-color: white;
+  margin-top: 1%;
+  width: 20%;
+  height: 217px;
+  color: black;
+}
+
+#duracao {
+  float: right;
+  background-color: white;
+  margin-top: 1%;
+  width: 20%;
+  height: 217px;
+  color: black;
+}
+
+#listagem {
+	float: right;
+	background-color: white;
+	margin-top: 1%;
+	width: 82%;
+	height:310px;
+	color: black;
+	overflow: auto;
+}
 
 .campos {
 	padding: 0% 15% 0% 15%;
