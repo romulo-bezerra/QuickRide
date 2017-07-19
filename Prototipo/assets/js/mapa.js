@@ -69,8 +69,8 @@ initialize();
 });*/
 
 // Função que mostra a distância e a duração da rota indicada
-
-$("form").submit(function(event) {
+btnEnviar.onclick = function(event){
+//$("form").submit(function(event) {
 	event.preventDefault();
 
 	var enderecoPartida = $("#txtEnderecoPartida").val();
@@ -85,14 +85,22 @@ $("form").submit(function(event) {
 	directionsService.route(request, function(response, status) {
 		 if (status == google.maps.DirectionsStatus.OK) {
 
-						document.getElementById('distancia').innerHTML +=
+						document.getElementById('distancia').value =
 							 response.routes[0].legs[0].distance.text;
-
-						document.getElementById('duracao').innerHTML +=
-							 response.routes[0].legs[0].duration.text;
-
+						
+						//Duração em formato HORA horas MINUTO minutos
+						var dur = response.routes[0].legs[0].duration.text;
+						
+						//Formatando duração - retirando "minutos"
+						var noMinutes = dur.replace(" minutos", "");
+						
+						//Duração no formato hora:minuto
+						var duracao = noMinutes.replace(" horas ", ":");
+						
+						document.getElementById('duracao').value = duracao;
+						
 						directionsDisplay.setDirections(response);
 				 }
 			});
 
-});
+};

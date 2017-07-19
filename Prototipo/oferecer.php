@@ -47,25 +47,69 @@
 
       <h3 class="nomepagina" >Oferecer Carona</h3>
 
-      <form  class="formpagina" method="post" action="index.html">
+      <form  class="formpagina" method="post" action="oferecer.php">
 
-          <h4 for="txtEnderecoPartida">Origem</h4>
-          <input class="form-control2" type="text" id="txtEnderecoPartida" name="txtEnderecoPartida">
+         <h4 for="txtEnderecoPartida">Origem</h4>
+         <input class="form-control2" type="text" id="txtEnderecoPartida" name="origem">
          </br>
-          <h4 for="txtEnderecoChegada">Destino</h4>
-          <input class="form-control2" type="text" id="txtEnderecoChegada" name="txtEnderecoChegada">
+         <h4 for="txtEnderecoChegada">Destino</h4>
+         <input class="form-control2" type="text" id="txtEnderecoChegada" name="destino">
          </br></br>
-         <input class="btn btn-black" type="submit"  id="btnEnviar" name="btnEnviar" value="Adicionar Destino">
-       </br>
+         <button id="btnEnviar" class="btn btn-black">Adicionar Destino</button>
+         </br><br>
          <h4>Data da Viajem</h4>
-         <input type="date" class="form-control2" placeholder="Nascimento" id="cell" name="cell" required>
+         <input type="date" class="form-control2" placeholder="Nascimento" id="cell" name="dataViajem" required>
          <h4>Hora de Saída</h4>
-         <input type="time" class="form-control2" placeholder="Nascimento" id="hora" name="hora" required>
+         <input type="time" class="form-control2" placeholder="Nascimento" id="hora" name="horaSaida" required>
          <h4>Ajuda de Custo</h4>
-         <input type="text" class="form-control2" placeholder="R$" id="cell" name="cell" required>
-       </br></br>
-         <a class="btn btn-black" href="inicial.html">Confirmar</a>
-</form>
+         <input type="text" class="form-control2" placeholder="R$" id="cell" name="custo" required>
+      	 </br></br>
+      	 
+      	 <!-- Seta titulo da distância -->
+		 <h4 class="distance">Distância</h4>
+		 <!-- Div armazena resultado da distância -->
+		 <input name="distancia" disabled="disabled" id="distancia" class="disdur"><br />
+		
+		 <!-- Seta titulo da duração -->
+		 <h4 class="duracion">Duração</h4>
+		 <!-- Div armazena resultado da duração da viajem -->
+		 <input name="duracao" disabled="disabled" id="duracao" class="disdur">
+		
+         <input class="btn btn-black" value="Confirmar" type="submit">
+	</form>
+	
+	<?php
+		include("crudMySql.php");
+		
+		if(!empty($_POST['distancia']) and !empty($_POST['duracao'])){
+		
+			//Monta array com os dados
+			$usuario = array(
+		        'usuario' => $_SESSION['email'],
+		        'oferecimento' => TRUE,
+		        'origem' => $_POST['origem'],
+		        'data_viajem' => $_POST['dataViajem'],
+		        'hora_saida' => $_POST['horaSaida'],
+		        'hora_chegada' => $_POST['sexo'],//Falta configurar
+		        'ajuda_custo' => $_POST['custo'],
+		        'destino' => $_POST['destino'],
+		        'distancia' => $_POST['distancia']
+		    );
+			
+			
+			
+		}else{
+			echo '<script>alert("Você não traçou a rota. CLIQUE em Adicionar Destino");</script>';
+		}
+		
+			
+		
+		
+		
+		
+		
+	
+	?>
 
 <div id="mapa">
 </div>
@@ -73,8 +117,6 @@
 <!--<div id="trajeto-texto">
 </div>-->
 
-<div id="distancia"><h4 class="dis">-Distância-</h4></div>
-<div id="duracao"><h4 class="dur">-Duração-</h4></div>
 
 </div>
 </header>

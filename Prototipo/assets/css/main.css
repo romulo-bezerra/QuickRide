@@ -108,20 +108,19 @@ ul li {
 }
 
 #distancia {
-  float: right;
+  border: 0;
   background-color: white;
-  margin-top: 1%;
-  width: 20%;
-  height: 217px;
+  width: 85%;
+  height: 30px;
   color: black;
 }
 
+
 #duracao {
-  float: right;
+  border: 0;
   background-color: white;
-  margin-top: 1%;
-  width: 20%;
-  height: 217px;
+  width: 85%;
+  height: 30px;
   color: black;
 }
 
@@ -194,6 +193,11 @@ ul li {
   line-height: 1.6;
   color: black;
 }
+
+.form-control2 {
+	width: 85%;
+}
+
 .form-control2:focus {
   box-shadow: none;
   border-color: #ccc;
