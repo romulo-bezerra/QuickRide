@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bower_components/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
-
   </head>
   <body>
 
@@ -47,69 +46,26 @@
 
       <h3 class="nomepagina" >Oferecer Carona</h3>
 
-      <form  class="formpagina" method="post" action="oferecer.php">
+      <form  class="formpagina" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
 
          <h4 for="txtEnderecoPartida">Origem</h4>
          <input class="form-control2" type="text" id="txtEnderecoPartida" name="origem">
-         </br>
          <h4 for="txtEnderecoChegada">Destino</h4>
          <input class="form-control2" type="text" id="txtEnderecoChegada" name="destino">
-         </br></br>
-         <button id="btnEnviar" class="btn btn-black">Adicionar Destino</button>
-         </br><br>
          <h4>Data da Viajem</h4>
-         <input type="date" class="form-control2" placeholder="Nascimento" id="cell" name="dataViajem" required>
+         <input type="date" class="form-control2" placeholder="Nascimento" id="dataViajem" name="dataViajem" required>
          <h4>Hora de Saída</h4>
-         <input type="time" class="form-control2" placeholder="Nascimento" id="hora" name="horaSaida" required>
+         <input type="time" class="form-control2" placeholder="Nascimento" id="horaSaida" name="horaSaida" required><br /><br />
+         <button id="btnEnviar" class="btn btn-black">Adicionar Destino</button> <br /> <br />
          <h4>Ajuda de Custo</h4>
          <input type="text" class="form-control2" placeholder="R$" id="cell" name="custo" required>
-      	 </br></br>
-      	 
-      	 <!-- Seta titulo da distância -->
 		 <h4 class="distance">Distância</h4>
-		 <!-- Div armazena resultado da distância -->
-		 <input name="distancia" disabled="disabled" id="distancia" class="disdur"><br />
-		
-		 <!-- Seta titulo da duração -->
-		 <h4 class="duracion">Duração</h4>
-		 <!-- Div armazena resultado da duração da viajem -->
-		 <input name="duracao" disabled="disabled" id="duracao" class="disdur">
-		
+		 <input name="distancia"  id="distancia" class="disdur"><br />
+		 <h4 class="duracion">Hora de Chegada</h4>
+		 <input name="duracao"  id="duracao" class="disdur">
          <input class="btn btn-black" value="Confirmar" type="submit">
+         
 	</form>
-	
-	<?php
-		include("crudMySql.php");
-		
-		if(!empty($_POST['distancia']) and !empty($_POST['duracao'])){
-		
-			//Monta array com os dados
-			$usuario = array(
-		        'usuario' => $_SESSION['email'],
-		        'oferecimento' => TRUE,
-		        'origem' => $_POST['origem'],
-		        'data_viajem' => $_POST['dataViajem'],
-		        'hora_saida' => $_POST['horaSaida'],
-		        'hora_chegada' => $_POST['sexo'],//Falta configurar
-		        'ajuda_custo' => $_POST['custo'],
-		        'destino' => $_POST['destino'],
-		        'distancia' => $_POST['distancia']
-		    );
-			
-			
-			
-		}else{
-			echo '<script>alert("Você não traçou a rota. CLIQUE em Adicionar Destino");</script>';
-		}
-		
-			
-		
-		
-		
-		
-		
-	
-	?>
 
 <div id="mapa">
 </div>
@@ -122,7 +78,7 @@
 </header>
 
     <!-- script -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjgDETAGa13nEXRxZypOnLqc8PhzLSdoc&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgf7lIrFnLz2J67wYUibx-jhl3XlNFbmQ&callback=initMap"></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
