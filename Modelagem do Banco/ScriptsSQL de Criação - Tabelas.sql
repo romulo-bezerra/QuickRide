@@ -10,7 +10,7 @@ CREATE TABLE Usuario(
 
 CREATE TABLE Carona(
 	id SERIAL,
-	usuario VARCHAR(100) NOT NULL UNIQUE,
+	usuario VARCHAR(100) NOT NULL,
 	oferecimento BOOLEAN NOT NULL,
 	origem VARCHAR(100) NOT NULL,
 	data_viajem VARCHAR(15) NOT NULL,
