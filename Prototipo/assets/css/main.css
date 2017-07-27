@@ -81,12 +81,13 @@ ul li {
 }
 
 #mapa {
+  opacity: .7;
   width: 60%;
   height: 450px;
   float: left;
   margin-top: 1%;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: 8%
+
 }
 
 .nomepagina {
@@ -139,9 +140,86 @@ ul li {
 	right: 25%;
 }
 #btLogin {
+  color: black;
+  background-color: white;
 	padding: 1% 10% 1% 10%;
+  border: solid;
+  border-radius: 5%;
 }
 
+#CadLogin{
+  margin-left: 13%;
+  float: left;
+}
+
+#btLoginIndex{
+  opacity: .7;
+  margin-top: 5%;
+  font-size: 25px;
+  width: 10%;
+  padding: 2%;
+  color: black;
+  background-color: white;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#emailLog{
+  color: black;
+  border: solid;
+  border-radius: 3%;
+}
+
+#senhaLog{
+  color: black;
+  border: solid;
+  border-radius: 3%;
+}
+
+#LinkCad{
+  color: black;
+  background-color: white;
+  border: solid;
+  border-radius: 5%;
+  width: 22%;
+  font-size: 11px;
+  padding-left: 4.2%;
+}
+
+#posiciona {
+color: black;
+position: absolute;
+right: 33%;
+top: 35%;
+min-width: 35%;
+max-width: 35%;
+width: 35%;
+min-height: 210%;
+max-height: 210%;
+height: 210%;
+margin-top: -125px;
+opacity: .7;
+border-radius: 3%;
+background-color: white;
+}
+
+#btOfer{
+  margin-right: 2%;
+  font-size: 15px;
+  padding-top: 3%;
+  height: 100px;
+}
+
+#btPes{
+  font-size: 15px;
+  padding-top: 3%;
+  height: 100px;
+}
+
+#footer{
+  height: 25px;
+}
 
 .btn.active.focus,
 .btn.active:focus,

@@ -40,7 +40,7 @@ function initialize() {
 				}
             });
 		});
-	}	
+	}
 }
 
 initialize();
@@ -69,17 +69,29 @@ initialize();
 var waypoints = [];
 
 //Função adiciona waypoints ao array e emite status de inserção
-btAddWeypoints.onclick = function(event){
+btAddWeypoints.onclick = function (event) {
 	event.preventDefault();
-	var ponto = document.getElementById('pontoIntermediario').value;
-	if (ponto != '') {
-    	if(waypoints.push({
-    		location: ponto, 
-    		stopover: false})
-    	) alert("ADICIONADO");
-    	else alert("NÃO ADICIONADO");	
-	}
-	document.getElementById('pontoIntermediario').value = "";
+	swal({
+  title: "An input!",
+  text: "Write something interesting:",
+  type: "input",
+  showCancelButton: true,
+  closeOnConfirm: false,
+  animation: "slide-from-top",
+  inputPlaceholder: "Write something"
+},
+function(inputValue){
+  if (inputValue === false) return false;
+
+  if (inputValue === "") {
+    swal.showInputError("You need to write something!");
+    return false;
+  };
+		waypoints.push({
+			location: inputValue});
+      swal("Nice!", "You wrote: " , "success");
+			return true;
+});
 };
 
 //Função que mostra a distância e a duração da rota indicada
@@ -88,7 +100,7 @@ btnEnviar.onclick = function(event){
 
 	var enderecoPartida = $("#txtEnderecoPartida").val();
 	var enderecoChegada = $("#txtEnderecoChegada").val();
-	
+
 	var request = {
 			origin: enderecoPartida,
 			destination: enderecoChegada,
@@ -100,73 +112,73 @@ btnEnviar.onclick = function(event){
 		 if (status == google.maps.DirectionsStatus.OK) {
 
 			document.getElementById('distancia').value = response.routes[0].legs[0].distance.text;
-			
+
 			//Duração em formato 'X horas Y minutos'
 			var dur = response.routes[0].legs[0].duration.text;
-			
+
 			//Obtêm os inputs
 			var horaSaida = document.getElementById('horaSaida').value;
 			var dataViajem  = document.getElementById('dataViajem').value;
-			
+
 			//Chama a Função para calcular a hora estimada de chegada
 			var horaChegada = calculaHoraChegadaAoDestino(dataViajem, horaSaida, dur);
-			
+
 			//Seta no campo input
 			document.getElementById('duracao').value = horaChegada;
-			
+
 			directionsDisplay.setDirections(response);
 		}
 	});
-};	
+};
 
-//Função calcula a hora estimada de chegada ao destino da carona somando-se a 
+//Função calcula a hora estimada de chegada ao destino da carona somando-se a
 //hora da saída e a duração dada pela API do tráfego da rota
 function calculaHoraChegadaAoDestino(dataViajem, horaSaida, duracaoDaViajem){
-	
+
 	var minuto = 0;
-	
-	//Analisa se a duração é dada em 'X minutos' e Transforma em somente Números		
-	if(duracaoDaViajem.match(/minuto/) && !duracaoDaViajem.match(/hora/) ){ 
-		var horaFormatada = duracaoDaViajem.replace(/[^\d]+/g,':'); 
-		var arrayHoraFormatada = horaFormatada.split(":"); 
+
+	//Analisa se a duração é dada em 'X minutos' e Transforma em somente Números
+	if(duracaoDaViajem.match(/minuto/) && !duracaoDaViajem.match(/hora/) ){
+		var horaFormatada = duracaoDaViajem.replace(/[^\d]+/g,':');
+		var arrayHoraFormatada = horaFormatada.split(":");
 		minuto = Number(arrayHoraFormatada[0]);
-	
+
 	//Analisa se a duração é dada em Dias:Horas e Transforma em somente Números
-	}else if(duracaoDaViajem.match(/dia/)){ 
+	}else if(duracaoDaViajem.match(/dia/)){
 		//Retira tudo o q não for número
-		var diaFormatado = duracaoDaViajem.replace(/[^\d]+/g,','); 
-		var arrayDiaFormatado = diaFormatado.split(","); 
+		var diaFormatado = duracaoDaViajem.replace(/[^\d]+/g,',');
+		var arrayDiaFormatado = diaFormatado.split(",");
 		var diaEmHora = arrayDiaFormatado[0] * 24;
 		var hora = arrayDiaFormatado[1];
 		minuto = (Number(diaEmHora) + Number(hora))*60;
-	
-	//Analisa se a duração é dada em Horas:Minutos e Transforma em somente Números	
-	}else{ 
+
+	//Analisa se a duração é dada em Horas:Minutos e Transforma em somente Números
+	}else{
 		//Retira tudo o q não for núrmero
-		var horaFormatada = duracaoDaViajem.replace(/[^\d]+/g,':'); 
-		var arrayHoraFormatada = horaFormatada.split(":"); 
+		var horaFormatada = duracaoDaViajem.replace(/[^\d]+/g,':');
+		var arrayHoraFormatada = horaFormatada.split(":");
 		var hora = arrayHoraFormatada[0];
 		minuto = Number(arrayHoraFormatada[1]) + Number(hora)*60;
-	
+
 	}
-	
+
 	//Divide a data da viajem em um array contendo [ano],[mes],[dia]
 	var matDataViajem = dataViajem.split("-");
-		
+
 	//Divide a hora de saída da viajem em um array contendo [hora],[minuto]
 	var matHoraSaida = horaSaida.split(":");
-	
+
 	//Monta uma data do tipo Date(Ano, Mes, Dia, Hora, Minuto, Segundo, Milissegundo)
-	var dataHoraSaida = new Date(matDataViajem[0], matDataViajem[1], matDataViajem[2], 
+	var dataHoraSaida = new Date(matDataViajem[0], matDataViajem[1], matDataViajem[2],
 			matHoraSaida[0], matHoraSaida[1], 00, 0);
-	
+
 	//Atribue ao objeto dataHoraSaida a soma do objeto dataHoraSaida com a os minutos da duracao
-	dataHoraSaida.setMinutes(dataHoraSaida.getMinutes() + minuto); 
-	
+	dataHoraSaida.setMinutes(dataHoraSaida.getMinutes() + minuto);
+
 	//Data e Hora de chegada formatada
-	var horaChegada = dataHoraSaida.getDate() + "/"+dataHoraSaida.getMonth() + "/" + 
-			dataHoraSaida.getFullYear() + " às ≅ "+ dataHoraSaida.getHours() + ":" + 
+	var horaChegada = dataHoraSaida.getDate() + "/"+dataHoraSaida.getMonth() + "/" +
+			dataHoraSaida.getFullYear() + " às ≅ "+ dataHoraSaida.getHours() + ":" +
 			dataHoraSaida.getMinutes();
-	
+
 	return horaChegada;
 }

@@ -24,7 +24,7 @@
                         <!-- logo image  -->
                         <img src="assets/images/logo.png" alt="Logo">
 
-                        Caronas 2017
+                        QuickRide
                     </a>
                 </div>
 
@@ -35,16 +35,22 @@
                     <span class="icon-bar"></span>
                 </button>
 
-            </div><!-- /.navbar-header -->  
+            </div><!-- /.navbar-header -->
         </div><!-- /.container -->
     </nav>
 
     <header id="site-header" class="site-header valign-center">
+
         <div class="intro">
 
+
+
           <section id="registration" class="section registration">
+
               <div class="container">
-                  <div class="row">
+                <div id="posiciona">
+
+                  <div class="row"><br/>
                       <div class="col-md-12">
                           <h3>Sign in</h3>
                       </div>
@@ -56,24 +62,29 @@
                               <div class="alert"></div>
                           </div>
                           <div class="campos">
-	                          <input type="email" align="center" class="form-control" placeholder="Email" id="email" name="email" required><br/>
-	                          <input type="password" class="form-control" placeholder="Senha" id="senha" name="senha" required>                    	
+	                          <input type="email" align="center" class="form-control" placeholder="Email" id="emailLog" name="email" required><br/>
+	                          <input type="password" class="form-control" placeholder="Senha" id="senhaLog" name="senha" required>
                           </div>
                       </div>
                       <div class="text-center mt20">
                           <input type="submit" class="btn btn-black" id="btLogin" value="Login" href="inicial.php">
+                      </div><br/>
+                      <div class="text-center mt20">
+                          <h4 id="CadLogin">Não é Cadastrado ?</h4>
+                          <a id="LinkCad" class="btn btn-black" href="cadastro.php">Cadastrar</a>
                       </div>
-                      <div class="text-center mt20"><br/>
-                          <h3>Não é Cadastrado ?</h3>
-                          <a class="btn btn-black" href="cadastro.php">Cadastrar</a>
-                      </div>             
                   </form>
+                  </div>
               </div>
+
           </section>
 
+
+
         </div>
+
     </header>
-    <?php 
+    <?php
 		include("main_alerts.php");
 		session_start();
 		status_validaLogin($_SESSION['valSuccess'], $_SESSION['message']);

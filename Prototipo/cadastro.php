@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
-	<?php 
+	<?php
 		include("main_alerts.php");
 		status_cadastro();
 	?>
@@ -28,7 +28,7 @@
                         <!-- logo image  -->
                         <img src="assets/images/logo.png" alt="Logo">
 
-                        Caronas 2017
+                        QuickRide
                     </a>
                 </div>
 

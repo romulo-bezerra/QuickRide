@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
-  	<?php 
+  	<?php
 		include("main_alerts.php");
 		session_start();
 		status_validaLogin($_SESSION['valSuccess'], $_SESSION['message']);
@@ -30,7 +30,7 @@
                         <!-- logo image  -->
                         <img src="assets/images/logo.png" alt="Logo">
 
-                        Caronas 2017
+                        QuickRide
                     </a>
                 </div>
 
@@ -53,8 +53,8 @@
         </br>
         <h3>O que Deseja Fazer Hoje ?</h3>
         </br>
-          <a class="btn btn-black" href="oferecer.html">Oferecer Carona</a>
-          <a class="btn btn-black" href="pesquisar.html">Pesquisar Ofertas</a>
+          <a id="btOfer" class="btn btn-black" href="oferecer.php">Oferecer Carona</a>
+          <a id="btPes" class="btn btn-black" href="pesquisar.html">Pesquisar Ofertas</a>
       </div>
     </div>
     </header>
