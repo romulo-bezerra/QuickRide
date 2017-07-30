@@ -31,6 +31,9 @@
 		//Formata condição caso exista ou não exista
         $condition = ($condition) ? " {$condition}" : null;    
 		
+		$dataGeral = array();
+		$i = 0;
+		
         $sql = "SELECT {$fields} FROM {$table}{$condition}";
         $result = $conexao->query($sql);
 		
@@ -38,12 +41,13 @@
       	// output data of each row
       		while($row = $result->fetch_assoc()) {
           		$data = $row;
+				$dataGeral[$i++] = $data;
       		}
   		} else {
       		return FALSE;
   		}
 		mysqli_close($conexao);
-		return $data;
+		return $dataGeral;
     }
 	
 	//Altera Registros

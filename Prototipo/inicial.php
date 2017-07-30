@@ -54,7 +54,7 @@
         <h3>O que Deseja Fazer Hoje ?</h3>
         </br>
           <a id="btOfer" class="btn btn-black" href="oferecer.php">Oferecer Carona</a>
-          <a id="btPes" class="btn btn-black" href="pesquisar.html">Pesquisar Ofertas</a>
+          <a id="btPes" class="btn btn-black" href="pesquisar.php">Pesquisar Ofertas</a>
       </div>
     </div>
     </header>

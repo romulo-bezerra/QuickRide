@@ -8,25 +8,20 @@
 		$senha = $_POST['senha'];
 		
 		if(!empty($email) and !empty($senha)){
-			if(read_database('usuario', "WHERE email = '$email'") != FALSE){
+			if($result = read_database('usuario', "WHERE email = '$email'")){
 				$_SESSION['email'] = $email;
 				$_SESSION['senha'] = $senha;	
-				$_SESSION['nome'] = $nome = $result['nome'];
+				$_SESSION['nome'] = $nome = $result[0]['nome'];
 				
-				$result = read_database('usuario', "WHERE email = '$email'"); 
-				$_SESSION['nome'] = $nome = $result['nome'];
-				
-				if($result['senha'] <> $senha){	
+				if($result[0]['senha'] <> $senha){	
 			    	$_SESSION['valSuccess'] = FALSE;
 					$_SESSION['message'] = 'A senha está incorreta! Tente novamente';
 					Header("location:login.php");
-					
 					
 				}else{									
 					$_SESSION['valSuccess'] = TRUE;
 					$_SESSION['message'] = 'Login efetuado! Bem vindo, '.$nome;
 					Header("location:inicial.php");
-					
 				}
 			}else{						
 				$_SESSION['valSuccess'] = FALSE;
