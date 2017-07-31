@@ -34,7 +34,7 @@
 		$dataGeral = array();
 		$i = 0;
 		
-        $sql = "SELECT {$fields} FROM {$table}{$condition}";
+        $sql = "SELECT DISTINCT {$fields} FROM {$table}{$condition}";
         $result = $conexao->query($sql);
 		
         if ($result->num_rows > 0) {

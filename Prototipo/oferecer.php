@@ -100,7 +100,6 @@
 </html>
 
 <?php
-	//FALTA FAZER O ROWBACK CASO O WAYPOINT NÃO SEJA CADASTRADO
 
 	include("crudMySql.php");
 	session_start();
@@ -108,16 +107,24 @@
 	$email = $_SESSION['email'];
 	
 	if ($_POST) {
+		//Abre a conexão com o MySql
 		$conexao = open_database();
 		
+		//Obtém a origem da página
 		$origem = $_POST['origem'];
+		//Obtém o destino da página
 		$destino = $_POST['destino'];
 		
+		//Obtém as coordenadas: latitude e longitude da origem
 		$geomOrigem = calcLatLong($origem);
+		//Obtém as coordenadas: latitude e longitude do destino
 		$geomDestino = calcLatLong($destino);
 		
+		//Bloco: Obtém os valores dos campos da página
         $email_usuario = $email;
+		//Converte a origem numa Geometry tipo POINT
         $geom_origem = "ST_GeomFromText('Point($geomOrigem)')";
+        //Converte o destino numa Geometry tipo POINT
         $geom_destino = "ST_GeomFromText('Point($geomDestino)')";
         $descricao_origem = $_POST['origem'];
         $data_viajem = $_POST['dataViajem'];
@@ -126,48 +133,62 @@
         $ajuda_custo = (double) $_POST['custo'];
         $descricao_destino = $_POST['destino'];
         $distancia = $_POST['distancia'];
-    
+		//----- Fim do bloco
+    	
+    	//Recebe string de script de inserção da carona para execução sql
 		$sql = "INSERT INTO carona (email_usuario, geom_origem, geom_destino, descricao_origem, 
 				data_viajem, hora_saida, hora_chegada, ajuda_custo, descricao_destino, distancia) 
 	      		VALUES ('$email_usuario', $geom_origem, $geom_destino, '$descricao_origem', 
 	      		'$data_viajem', '$hora_saida', '$hora_chegada', '$ajuda_custo', '$descricao_destino', 
 	      		'$distancia')";
 		
+		//Controla cadastro da carona
 		$caronaCadastrada = FALSE;
+		//Controla cadastro do waypoint
 		$waypointCadastrado = TRUE;
 		
+		//Executa e verifica o status da inserção da carona
 		if(mysqli_query($conexao, $sql)){
 			$caronaCadastrada = TRUE;
-		}
-		
-		//Obtém string de waypoints
-		$waypoints = $_POST['waypoints'];
-		//Obtém vetor de String de waypoints
-		$waypoints = explode('#', $waypoints);
-		
-		for($i = 0; $i<sizeof($waypoints)-1; $i++){
+			
+			//Obtém string de waypoints
+			$waypoints = $_POST['waypoints'];
+			//Obtém vetor de String de waypoints
+			$waypoints = explode('#', $waypoints);
+			
+			//Percorre vetor de waypoints para inserção
+			for($i = 0; $i<sizeof($waypoints)-1; $i++){
 				
-			$descricao_waypoint = $waypoints[$i];
-			$geom_waypoint = calcLatLong($descricao_waypoint);
-			$geom_waypoint = "ST_GeomFromText('Point($geom_waypoint)')";
-			
-			$sql1 = "INSERT INTO waypoints (email_usuario, data_carona, hora_carona, descricao, geom)
-					VALUES ('$email_usuario', '$data_viajem', '$hora_saida', '$descricao_waypoint', $geom_waypoint);";	
-			
-			if(!(mysqli_query($conexao, $sql1))){
-				$waypointCadastrado = FALSE;
+				//Obtém a descrição do waypoint
+				$descricao_waypoint = $waypoints[$i];
+				//Obtém as coordenadas: latitude e longitude do waypoint
+				$geom_waypoint = calcLatLong($descricao_waypoint);
+				//Converte o waypoint numa Geometry tipo POINT
+				$geom_waypoint = "ST_GeomFromText('Point($geom_waypoint)')";
+				
+				//Recebe string de script de inserção do waypoint para execução sql
+				$sql1 = "INSERT INTO waypoints (email_usuario, data_carona, hora_carona, descricao, geom)
+						VALUES ('$email_usuario', '$data_viajem', '$hora_saida', '$descricao_waypoint', $geom_waypoint);";	
+				
+				//Executa e verifica o status da inserção do waypoint
+				if(!(mysqli_query($conexao, $sql1))){
+					$waypointCadastrado = FALSE;
+				}		
 			}
-				
 		}
-
+		
+		//Verifica e emite alert de status de cadastro
 		if($waypointCadastrado and $caronaCadastrada)
 			echo '<script>swal("Cadastrada!", "Sua Carona foi salva!", "success");</script>';
 		else echo '<script>swal("Erro ao Cadastrar!", "Check novamente suas informações!", "error");</script>';
-
+		
+		//Fecha a conexão com MySql
 		mysqli_close($conexao);
+		
 	}
 	
-	
+	//Função calcula coordenadas: latitude e longitude de uma localidade
+	//Retorna um tipo String 'lat long'
 	function calcLatLong($localidade){
 		//Retira espaços em branco da localidade
 		$localidade = str_replace(" ","",$localidade);

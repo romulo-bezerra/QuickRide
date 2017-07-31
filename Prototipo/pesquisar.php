@@ -50,27 +50,12 @@
 					<input class="form-control2" type="text" id="txtEnderecoChegada" name="destino">
 					</br>
 
-					<h4 for="txtEnderecoPartida" >OrigemBanco</h4>
-					<input class="form-control2" type="text" id="origemBanco" name="origemBanco" value="">
-					</br>
-
-					<h4 for="txtEnderecoPartida" >DestinoBanco</h4>
-					<input class="form-control2" type="text" id="destinoBanco" name="destinoBanco" value="">
-					</br>
-
-					<h4 for="txtEnderecoPartida" >WayPoints</h4>
-					<input class="form-control2" type="text" id="waypointsBanco" name="waypointsBanco" value="">
-					</br>
-
 					<h4>Data da Viajem</h4>
 					<input type="date" class="form-control2" placeholder="data" id="dataViajem" name="dataViajem" required>
-
-					<input type="text" class="form-control2" id="distancia" name="distancia" >
-
-					<br>
-					<button type="button" class="btn btn-black" id="btPesquisar" name="btPesquisar">
-						Confirmar
-					</button>
+					<br></br>
+					
+					<input type="submit" class="btn btn-black" id="btPesquisar" name="btPesquisar" value="Buscar">
+						
 					</br></br>
 
 					<a class="btn btn-black" href="oferecer.php">Editar</a>
@@ -79,7 +64,7 @@
 
 				<div id="listagem" >
 					<h4>-Ofertas Disponíveis-</h4>
-					<h4 id="distanciaPes"></h4>
+					<h4 id="listagemCaronas"></h4>
 				</div>
 			</div>
 
@@ -99,46 +84,97 @@
 <?php
 	include ("crudMySql.php");
 	
-	if ($_POST) {
-	
+	if ($_POST){
+		
+		//Obtém a data da viajem da página
 		$dataViajem = $_POST['dataViajem'];
-	
-		$result = read_database('carona', "WHERE data_viajem = '2017-07-19'");
-	
+		
+		//Obtém a origem da página
+		$origem = $_POST['origem'];
+		//Obtém o destino da página
+		$destino = $_POST['destino'];
+		
+		//Obtém as coordenadas: latitude e longitude da origem  
+		$origem = calcLatLong($origem);
+		//Obtém as coordenadas: latitude e longitude do destino  
+		$destino = calcLatLong($destino);
+		
+		//Converte a origem numa Geometry tipo POINT
+		$origem = "ST_GeomFromText('Point($origem)')";
+		//Converte o destino numa Geometry tipo POINT
+		$destino = "ST_GeomFromText('Point($destino)')";
+		
+		//Tabelas usadas para a consulta sql
+		$tabela = "Carona c, Waypoints w";
+		//Campo de seleção para a consulta sql
+		$campos = "c.email_usuario";
+		//Condição de restrição para a consulta sql
+		$condicao = "WHERE (((c.data_viajem = '$dataViajem' and 
+					((ST_Distance(c.geom_origem, $origem) * (40075/360)) <= 20)) or 
+					(c.hora_saida = w.hora_carona and w.data_carona = '$dataViajem' and 
+					((ST_Distance(w.geom, $origem) * (40075/360)) <= 20))) and 
+					((c.data_viajem = '$dataViajem' and ((ST_Distance(c.geom_destino, $destino) * (40075/360)) <= 20)) or 
+					(c.hora_saida = w.hora_carona and w.data_carona = '$dataViajem' and 
+					((ST_Distance(w.geom, $destino) * (40075/360)) <= 20))))";
+					
+		//Recupera do banco segundo a consulta
+		$result = read_database($tabela, $condicao, $campos);
+		
+		//Percorre todas as linhas encontradas na consulta
 		for ($i = 0; $i < sizeof($result); $i++) {
-			$origem = $result[$i]['origem'];
-			$destino = $result[$i]['destino'];
-			$waypoints = $result[$i]['pontos_intermediarios'];
-			echo "<script>
-				  origemBanco.value = '$origem';
-			 ndestinoBanco.value = '$destino';
-					waypointsBanco.value = '$waypoints';
-					</script>";
+			$emailBD = $result[$i]['email_usuario'];
+			
+			//Busca os dados do usuario a partir de uma Consulta aninhada
+			//recebendo como parâmetro chave o email obtido na consulta
+			//feita acima armazenada na variável $result
+			$result1 = read_database('usuario', "WHERE email = '$emailBD'");
+			
+			//Busca e armazena nas variáveis cada campo da row encontrada
+			$emailContatoCarona = $result1[$i]['email'];
+			$nomeContatoCarona = $result1[$i]['nome'];
+			$sexoContatoCarona = $result1[$i]['sexo'];
+			$telefoneContatoCarona = $result1[$i]['telefone'];
+			$nascimentoContatoCarona = $result1[$i]['nascimento'];
+			
+			//Verifica se a consulta retornou algum resultado
+			if($result and $result1){
+				echo "<script> listagemCaronas.innerHTML += '| Email: $emailContatoCarona <br><br>".
+					 "| Nome: $nomeContatoCarona <br><br>"."| Sexo: $sexoContatoCarona <br><br>".
+					 "| Telefone: $telefoneContatoCarona <br><br>"."| Nascimento: $nascimentoContatoCarona <br>".
+					 "----------------------------------------';</script>";	
+			}else {
+				echo "<script> listagemCaronas.innerHTML = '<br><br> Não há caronas para essa busca!'; </script> ";
+			}
+			
 		}
-	
-		$enderecoPartida = $_POST['origem'];
-		$enderecoChegada = $_POST['destino'];
 	
 	}
 	
-	$var = '<script>calculaQuilometragem("patos pb", "sousa pb");</script>';
-	echo "$var";
-	
-	echo calcDistancia(-6.750598, -38.230485, -7.119350, -34.845590);
-	
-	function calcLatLong($localidade) {
-		$geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $localidade . '&key=AIzaSyAgf7lIrFnLz2J67wYUibx-jhl3XlNFbmQ');
-	
-		$output = json_decode($geocode);
-	
-		$lat = $output -> results[0] -> geometry -> location -> lat;
-		$long = $output -> results[0] -> geometry -> location -> lng;
-	
-		$latLing = $lat . ',' . $long;
-		return $latLing;
+	//Função calcula coordenadas: latitude e longitude de uma localidade
+	//Retorna um tipo String 'lat long'
+	function calcLatLong($localidade){
+		//Retira espaços em branco da localidade
+		$localidade = str_replace(" ","",$localidade);
+		//Geocodifica  a localidade
+		$geocode = file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address='
+			       .$localidade.'&key=AIzaSyAgf7lIrFnLz2J67wYUibx-jhl3XlNFbmQ');
+		//transforma em um json
+		$output= json_decode($geocode);
+		//Obtém a latitude
+		$lat = $output->results[0]->geometry->location->lat;
+  		//Obtém a longitude
+  		$long = $output->results[0]->geometry->location->lng;
+		//Formata a saida
+  		$latLing = $lat .' '. $long;
+		
+	    return $latLing;
 	};
+	
+	
+	
+?>
 
-/*
+<!--
  function calcDistancia($lat1, $long1, $lat2, $long2){
  $d2r = 0.017453292519943295769236;
 
@@ -154,5 +190,4 @@
 
  return 6368.1 * $c;
  };
- */
-  ?>
+-->
