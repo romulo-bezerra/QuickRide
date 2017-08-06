@@ -3,8 +3,10 @@
   	//Importa arquivo
   	include("conexao.php");
   	
-	//Grava Reqistros (é o INSERT)
+	//Função grava reqistros 
     function create_database($table, array $data){
+        	
+        //Abre a conexao com o banco	
         $conexao = open_database();
 		
 		//Adiciona virgula nas chaves
@@ -13,15 +15,27 @@
 		//Adiciona virgula nos valores
         $values = "'".implode("', '", $data)."'";
         
+		//Recebe a sring sql de inserção para execução
         $sql = "INSERT INTO {$table} ({$fields}) VALUES ({$values})";
         
+		//Executa o comando sql da variável $sql
         if($conexao->query($sql)){
+        	
+			//Fecha a conexão após a execução do sql
         	mysqli_close($conexao);
+			
+			//Retorna true caso executado com sucesso o sql
 			return TRUE;	
+			
         }else{
+        	
+			//Fecha a conexão caso executado com insucesso o sql
         	mysqli_close($conexao);
+			
+			//Retorna false em caso de insucesso do sql
 			return FALSE;
         }
+		
     }
 	
 	//Ler Registros

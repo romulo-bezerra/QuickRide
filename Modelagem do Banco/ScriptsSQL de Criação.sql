@@ -6,7 +6,7 @@ CREATE TABLE Usuario(
 	telefone VARCHAR(20) NOT NULL,
 	nascimento VARCHAR(15) NOT NULL,
 	PRIMARY KEY(email)
-);
+)ENGINE = InnoDB;
 
 CREATE TABLE Carona(
 	email_usuario VARCHAR(100),
@@ -19,19 +19,19 @@ CREATE TABLE Carona(
 	ajuda_custo REAL NOT NULL,
 	descricao_destino VARCHAR(500) NOT NULL,
 	distancia VARCHAR(100) NOT NULL,
-	PRIMARY KEY(email_usuario, data_viajem, hora_saida),
-	FOREIGN KEY(email_usuario) REFERENCES Usuario(email)
-);
+	CONSTRAINT PK1 PRIMARY KEY(email_usuario, data_viajem, hora_saida),
+	CONSTRAINT FKC FOREIGN KEY(email_usuario) 
+		REFERENCES Usuario(email) ON UPDATE CASCADE ON DELETE CASCADE
+)ENGINE = InnoDB;
 
 CREATE TABLE waypoints(
-	id SERIAL,
+	id SERIAL PRIMARY KEY,
 	email_usuario VARCHAR(100) NOT NULL,
 	data_carona VARCHAR(100) NOT NULL,
 	hora_carona VARCHAR(100) NOT NULL,
 	descricao VARCHAR(500) NOT NULL,
 	geom GEOMETRY,
-	PRIMARY KEY(id),
-	CONSTRAINT FOREIGN KEY FK1(email_usuario) REFERENCES Usuario(email),
-	CONSTRAINT FOREIGN KEY FK2(data_carona) REFERENCES Carona(data_viajem),
-	CONSTRAINT FOREIGN KEY FK3(hora_carona) REFERENCES Carona(hora_saida)
-);
+	CONSTRAINT FKW FOREIGN KEY(email_usuario, data_carona, hora_carona) 
+		REFERENCES Carona(email_usuario, data_viajem, hora_saida) 
+			ON UPDATE CASCADE ON DELETE CASCADE
+)ENGINE = InnoDB;

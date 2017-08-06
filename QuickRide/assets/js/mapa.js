@@ -112,7 +112,8 @@ btnEnviar.onclick = function(event) {
 };
 
 //Função calcula a hora estimada de chegada ao destino da carona somando-se a
-//hora da saída e a duração dada pela API do tráfego da rota
+//hora da saída e a duração dada pela API do tráfego da rota. Retorna uma 
+//String de data formatada:" hh:mm do Dia dd/mm/aaaa ".
 function calculaHoraChegadaAoDestino(dataViajem, horaSaida, duracaoDaViajem) {
 
 	//Divide a data da viajem em um array contendo [ano],[mes],[dia]

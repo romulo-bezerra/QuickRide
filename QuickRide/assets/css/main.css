@@ -85,7 +85,6 @@ ul li {
   height: 450px;
   float: left;
   margin-top: 1%;
-  margin-left: 8%
 
 }
 
@@ -124,14 +123,29 @@ ul li {
   color: black;
 }
 
+#introCar{
+    margin-left: 30%;
+}
+
 #listagem {
+  opacity: 0.7;
 	float: right;
 	background-color: white;
-	margin-top: 1%;
-	width: 82%;
+	margin-top: 0.5%;
+	width: 65%;
+  margin-right: 8%;
 	height:310px;
-	color: black;
+  border: solid;
+  border-radius: 2%;
 	overflow: auto;
+}
+
+#tituloDiv{
+  color: black;
+}
+
+#listagemCaronas{
+  color: black;
 }
 
 .campos {
@@ -139,11 +153,10 @@ ul li {
 	right: 25%;
 }
 #btLogin {
-  color: black;
-  background-color: white;
 	padding: 1% 10% 1% 10%;
   border: solid;
   border-radius: 5%;
+  border-color: black;
 }
 
 #CadLogin{
@@ -152,13 +165,9 @@ ul li {
 }
 
 #btLoginIndex{
-  opacity: .7;
+  opacity: 0.9;
   margin-top: 5%;
-  font-size: 25px;
-  width: 10%;
-  padding: 2%;
-  color: black;
-  background-color: white;
+  font-size: 20px;
   border: solid;
   border-radius: 5%;
   border-color: black;
@@ -167,23 +176,19 @@ ul li {
 #emailLog{
   color: black;
   border: solid;
-  border-radius: 3%;
 }
 
 #senhaLog{
   color: black;
   border: solid;
-  border-radius: 3%;
 }
 
 #LinkCad{
-  color: black;
-  background-color: white;
+  margin-right: 2%;
   border: solid;
   border-radius: 5%;
-  width: 22%;
   font-size: 11px;
-  padding-left: 4.2%;
+  border-color: black;
 }
 
 #posiciona {
@@ -204,22 +209,131 @@ background-color: white;
 }
 
 #btOfer{
+  opacity: 0.9;
+  margin-top: 7%;
   margin-right: 2%;
   font-size: 15px;
-  padding-top: 3%;
-  height: 100px;
+  padding: 2.5% 1% 2.5% 1%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
 }
 
 #btPes{
+  opacity: 0.9;
+  margin-top: 7%;
   font-size: 15px;
-  padding-top: 3%;
-  height: 100px;
+  padding: 2.5% 1% 2.5% 1%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#btListar{
+  opacity: 0.9;
+  margin-top: 7%;
+  margin-right: 2%;
+  font-size: 15px;
+  padding: 2.5% 1% 2.5% 1%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#registration-submit-btn{
+  opacity: 0.9;
+  margin-top: 3%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
 }
 
 #waypoints{
 
 	display: none;
 
+}
+
+#btAddWeypoints{
+  opacity: 0.9;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+  margin-top: 4%;
+}
+
+#btnEnviar{
+  opacity: 0.9;
+  margin-top: 4%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#Confirmar{
+  opacity: 0.9;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#Excluir{
+  opacity: 0.9;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#OferConf{
+  opacity: 0.9;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#btPesquisar{
+  opacity: 0.9;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#divListaUsu{
+  margin: 4%;
+  padding: 2%;
+  opacity: 0.8;
+  background-color: black;
+}
+
+#linkLogout{
+  float: right;
+  opacity: 0.9;
+  border: solid;
+  border-radius: 5%;
+  border-color: black;
+}
+
+#listagemCaronas{
+	margin: 1%;
+	width: 98%;
+	border-style: solid;
+	border-color: black;
+}
+
+#tabTitulo{
+	border-style: solid;
+	border-color: black;
+	text-align: center;
+}
+
+#divEditar{
+width: 25%;
 }
 
 #footer{

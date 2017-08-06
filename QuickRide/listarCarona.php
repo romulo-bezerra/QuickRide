@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Login</title>
+    <title>Ofertas</title>
 
     <!-- css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -13,13 +13,15 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
   <body>
+
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
         <div class="container">
+          
             <div class="navbar-header">
 
                 <!-- logo -->
                 <div class="site-branding">
-                    <a class="logo" href="index.html">
+                    <a class="logo" href="inicial.php">
 
                         <!-- logo image  -->
                         <img src="assets/images/logo.png" alt="Logo">
@@ -36,59 +38,60 @@
                 </button>
 
             </div><!-- /.navbar-header -->
+
         </div><!-- /.container -->
     </nav>
 
     <header id="site-header" class="site-header valign-center">
-
         <div class="intro">
+        <div class="text-center mt20">
+        <h3>Suas Ofertas</h3>
 
+            <div id="divListaUsu" class="row">
 
+                    <?php
 
-          <section id="registration" class="section registration">
+                    	//Importa os arquivos
+                    	include ("crudMySql.php");
+						include("bloqueiaAcessoDiretoURL.php");
 
-              <div class="container">
-                <div id="posiciona">
+						//Recebe email logado da sessão
+						$email = $_SESSION['email'];
 
-                  <div class="row"><br/>
-                      <div class="col-md-12">
-                          <h3>Sign in</h3>
-                      </div>
-                  </div>
+						//Obtém o resultado da consulta
+						$result = read_database('carona', "WHERE email_usuario = '$email'");
 
-                  <form method="post" action="valida_login.php">
-                      <div class="row">
-                          <div class="col-md-12" id="registration-msg" style="display:none;">
-                              <div class="alert"></div>
-                          </div>
-                          <div class="campos">
-	                          <input type="email" align="center" class="form-control" placeholder="Email" id="emailLog" name="email" required><br/>
-	                          <input type="password" class="form-control" placeholder="Senha" id="senhaLog" name="senha" required>
-                          </div>
-                      </div>
-                      <div class="text-center mt20">
-                          <input type="submit" class="btn btn-black" id="btLogin" value="Login" href="inicial.php">
-                      </div><br/>
-                      <div class="text-center mt20">
-                          <h4 id="CadLogin">Não é Cadastrado ?</h4>
-                          <a id="LinkCad" class="btn btn-black" href="cadastro.php">Cadastrar</a>
-                      </div>
-                  </form>
-                  </div>
-              </div>
+						//Percorre as tuplas da consulta
+						for ($i = 0; $i < sizeof($result); $i++) {
 
-          </section>
+							//Obtem os valores de cada coluna de cada tupla
+							$origem = $result[$i]['descricao_origem'];
+							$destino = $result[$i]['descricao_destino'];
+							$dataViajem = $result[$i]['data_viajem'];
+							$horaSaida = $result[$i]['hora_saida'];
+							$ajudaCusto = $result[$i]['ajuda_custo'];
 
+							//Seta na pagina a tag '<i>'
+							echo '<i class="ion-ios-location"></i><br/>';
 
+							//Verifica se a consulta retorna resultado
+							if($result){
 
+								//Seta na página do action a tag form comseus atributos
+								echo '<form id="a" method="post" action="editarCarona.php">
+								  	  	<input  id="listUsu" class="btn btn-white" name="inputEditar" type="submit" value="'.$origem.'|'.$destino.
+								 		'|'.$dataViajem.'|'.$horaSaida.'|'.$ajudaCusto.'">
+								 	  <form><br/>';
+							}
+						}
+
+                    ?>
+
+            </div><!-- row -->
+        </div>
         </div>
 
     </header>
-    <?php
-		include("main_alerts.php");
-		session_start();
-		status_validaLogin($_SESSION['valSuccess'], $_SESSION['message']);
-	?>
 
     <!-- script -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
